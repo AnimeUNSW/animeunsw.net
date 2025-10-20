@@ -19,6 +19,10 @@
       open = false;
     }
   });
+
+  const firstLetterUpperCase = (word: string) => {
+    return word.charAt(1).toUpperCase() + word.slice(2);
+  };
 </script>
 
 <!-- desktop -->
@@ -86,8 +90,7 @@
 
         {#if !open}
           <span transition:fade={{ duration: 100 }} class="text-3xl"
-            >{page.url.pathname.charAt(1).toUpperCase() +
-              page.url.pathname.slice(2)}</span
+            >{firstLetterUpperCase(page.url.pathname)}</span
           >
         {/if}
 
@@ -132,8 +135,7 @@
 
       {#if !open}
         <span transition:fade={{ duration: 100 }} class="text-3xl"
-          >{page.url.pathname.charAt(1).toUpperCase() +
-            page.url.pathname.slice(2)}</span
+          >{firstLetterUpperCase(page.url.pathname)}</span
         >
       {/if}
 
