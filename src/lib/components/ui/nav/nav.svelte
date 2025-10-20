@@ -80,7 +80,7 @@
         scrollY > 100 ? "bg-background/100" : "bg-background/0",
       ]}
     >
-      <MobileNavButton>
+      <MobileNavButton bind:open>
         <a href="/" class="pb-1">
           <Icon
             variant="aunsw"
@@ -127,7 +127,7 @@
   <nav
     class="bg-background sticky top-0 flex flex-col gap-y-4 rounded-b-3xl px-4 md:hidden"
   >
-    <MobileNavButton>
+    <MobileNavButton bind:open>
       <a href="/" class="pb-1">
         <Icon variant="aunsw" size={36} fill="var(--foreground)" />
       </a>
