@@ -10,7 +10,7 @@
   import Join from "./join.svelte";
   import JoinSocialList from "./join-social-list.svelte";
   import NavItemList from "./nav-item-list.svelte";
-
+  import MobileNavButton from "./mobile-nav-button.svelte";
   let open = false;
   let scrollY: number;
 
@@ -80,10 +80,7 @@
         scrollY > 100 ? "bg-background/100" : "bg-background/0",
       ]}
     >
-      <button
-        class="z-50 flex items-center justify-between py-4"
-        onclick={() => (open = !open)}
-      >
+      <MobileNavButton>
         <a href="/" class="pb-1">
           <Icon
             variant="aunsw"
@@ -106,7 +103,7 @@
             color={scrollY > 100 || open ? "var(--foreground)" : "white"}
           />
         </div>
-      </button>
+      </MobileNavButton>
 
       {#if open}
         <div
@@ -130,10 +127,7 @@
   <nav
     class="bg-background sticky top-0 flex flex-col gap-y-4 rounded-b-3xl px-4 md:hidden"
   >
-    <button
-      class="z-50 flex items-center justify-between py-4"
-      onclick={() => (open = !open)}
-    >
+    <MobileNavButton>
       <a href="/" class="pb-1">
         <Icon variant="aunsw" size={36} fill="var(--foreground)" />
       </a>
@@ -147,7 +141,7 @@
       <div class="flex items-center pr-1">
         <ChevronDown class={chevronDownTransition(open)} size={36} />
       </div>
-    </button>
+    </MobileNavButton>
 
     {#if open}
       <div
