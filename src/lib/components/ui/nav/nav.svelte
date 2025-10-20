@@ -25,10 +25,9 @@
   };
 
   const flyTransition = { y: -8, duration: 200, easing: quadInOut };
-  const chevronDownTransition = [
-    "transition-all duration-200",
-    open ? "rotate-180" : "",
-  ];
+  const chevronDownTransition = (open: boolean) => {
+    return ["transition-all duration-200", open ? "rotate-180" : ""];
+  };
 </script>
 
 <!-- desktop -->
@@ -102,7 +101,7 @@
 
         <div class="flex items-center pr-1">
           <ChevronDown
-            class={chevronDownTransition}
+            class={chevronDownTransition(open)}
             size={36}
             color={scrollY > 100 || open ? "var(--foreground)" : "white"}
           />
@@ -146,7 +145,7 @@
       {/if}
 
       <div class="flex items-center pr-1">
-        <ChevronDown class={chevronDownTransition} size={36} />
+        <ChevronDown class={chevronDownTransition(open)} size={36} />
       </div>
     </button>
 
