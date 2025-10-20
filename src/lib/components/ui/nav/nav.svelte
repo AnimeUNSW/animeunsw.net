@@ -23,6 +23,12 @@
   const firstLetterUpperCase = (word: string) => {
     return word.charAt(1).toUpperCase() + word.slice(2);
   };
+
+  const flyTransition = { y: -8, duration: 200, easing: quadInOut };
+  const chevronDownTransition = [
+    "transition-all duration-200",
+    open ? "rotate-180" : "",
+  ];
 </script>
 
 <!-- desktop -->
@@ -96,7 +102,7 @@
 
         <div class="flex items-center pr-1">
           <ChevronDown
-            class={["transition-all duration-200", open ? "rotate-180" : ""]}
+            class={chevronDownTransition}
             size={36}
             color={scrollY > 100 || open ? "var(--foreground)" : "white"}
           />
@@ -105,7 +111,7 @@
 
       {#if open}
         <div
-          transition:fly={{ y: -8, duration: 200, easing: quadInOut }}
+          transition:fly={flyTransition}
           class="bg-card absolute top-0 left-0 z-40 w-full rounded-b-3xl pt-[72px] ease-in-out"
         >
           <ul class="flex w-full flex-col space-y-5 py-4 pl-8">
@@ -140,19 +146,13 @@
       {/if}
 
       <div class="flex items-center pr-1">
-        <ChevronDown
-          class={[
-            "transition-transform duration-200",
-            open ? "rotate-180" : "",
-          ]}
-          size={36}
-        />
+        <ChevronDown class={chevronDownTransition} size={36} />
       </div>
     </button>
 
     {#if open}
       <div
-        transition:fly={{ y: -8, duration: 200, easing: quadInOut }}
+        transition:fly={flyTransition}
         class="bg-card absolute top-0 left-0 z-40 w-full rounded-b-3xl pt-[72px] ease-in-out"
       >
         <ul class="flex w-full flex-col space-y-5 py-4 pl-8">
