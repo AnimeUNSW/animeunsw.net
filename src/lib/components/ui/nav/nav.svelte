@@ -6,11 +6,10 @@
   import { quadInOut } from "svelte/easing";
   import { fade, fly } from "svelte/transition";
   import { Icon } from "$lib/components/ui/icon";
-  import { Button } from "$lib/components/ui/button";
   import { ChevronDown } from "@lucide/svelte";
-  import NavItem from "./nav-item.svelte";
   import Join from "./join.svelte";
-  import JoinSocial from "./join-social.svelte";
+  import JoinSocialList from "./join-social-list.svelte";
+  import NavItemList from "./nav-item-list.svelte";
 
   let open = false;
   let scrollY: number;
@@ -41,10 +40,7 @@
       </a>
 
       <ul class="flex flex-row space-x-9">
-        <NavItem href="/events" label="Events" {scrollY} />
-        <NavItem href="/sponsors" label="Sponsors" {scrollY} />
-        <NavItem href="/info" label="Info" {scrollY} />
-        <NavItem href="/blog" label="Blog" {scrollY} />
+        <NavItemList {scrollY} />
       </ul>
 
       <Join />
@@ -59,10 +55,7 @@
     </a>
 
     <ul class="flex flex-row space-x-9">
-      <NavItem href="/events" label="Events" />
-      <NavItem href="/sponsors" label="Sponsors" />
-      <NavItem href="/info" label="Info" />
-      <NavItem href="/blog" label="Blog" />
+      <NavItemList />
     </ul>
 
     <Join />
@@ -113,41 +106,13 @@
           class="bg-card absolute top-0 left-0 z-40 w-full rounded-b-3xl pt-[72px] ease-in-out"
         >
           <ul class="flex w-full flex-col space-y-5 py-4 pl-8">
-            <NavItem href="/events" label="Events" />
-            <NavItem href="/sponsors" label="Sponsors" />
-            <NavItem href="/info" label="Info" />
-            <NavItem href="/blog" label="Blog" />
+            <NavItemList />
           </ul>
 
           <div
             class="xs:justify-start xs:space-x-4 xs:px-8 xs:pb-6 flex justify-between space-x-1 px-4 py-4"
           >
-            <JoinSocial
-              icon="rubric"
-              label="Rubric"
-              href="https://campus.hellorubric.com/?s=12432"
-              big={true}
-            />
-            <JoinSocial
-              icon="discord"
-              label="Discord"
-              href="https://discord.gg/aunsw"
-            />
-            <JoinSocial
-              icon="instagram"
-              label="Instagram"
-              href="https://instagram.com/animeunsw"
-            />
-            <JoinSocial
-              icon="facebook"
-              label="Facebook"
-              href="https://www.facebook.com/unswanime/"
-            />
-            <JoinSocial
-              icon="xiaohongshu"
-              label="RedNote"
-              href="https://discord.gg/aunsw"
-            />
+            <JoinSocialList />
           </div>
         </div>
       {/if}
@@ -189,41 +154,13 @@
         class="bg-card absolute top-0 left-0 z-40 w-full rounded-b-3xl pt-[72px] ease-in-out"
       >
         <ul class="flex w-full flex-col space-y-5 py-4 pl-8">
-          <NavItem href="/events" label="Events" />
-          <NavItem href="/sponsors" label="Sponsors" />
-          <NavItem href="/info" label="Info" />
-          <NavItem href="/blog" label="Blog" />
+          <NavItemList />
         </ul>
 
         <div
           class="xs:justify-start xs:space-x-4 xs:px-8 xs:pb-6 flex justify-between space-x-1 px-4 py-4"
         >
-          <JoinSocial
-            icon="rubric"
-            label="Rubric"
-            href="https://campus.hellorubric.com/?s=12432"
-            big={true}
-          />
-          <JoinSocial
-            icon="discord"
-            label="Discord"
-            href="https://discord.gg/aunsw"
-          />
-          <JoinSocial
-            icon="instagram"
-            label="Instagram"
-            href="https://instagram.com/animeunsw"
-          />
-          <JoinSocial
-            icon="facebook"
-            label="Facebook"
-            href="https://www.facebook.com/unswanime/"
-          />
-          <JoinSocial
-            icon="xiaohongshu"
-            label="RedNote"
-            href="https://discord.gg/aunsw"
-          />
+          <JoinSocialList />
         </div>
       </div>
     {/if}
