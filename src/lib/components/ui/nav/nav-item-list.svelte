@@ -4,7 +4,9 @@
 </script>
 
 <!-- list of nav items -->
-<NavItem href="/events" label="Events" {scrollY} />
-<NavItem href="/sponsors" label="Sponsors" {scrollY} />
-<NavItem href="/info" label="Info" {scrollY} />
-<NavItem href="/blog" label="Blog" {scrollY} />
+<ul class="flex flex-row space-x-9">
+  <NavItem href="/events" label="Events" {scrollY} />
+  <NavItem href="/sponsors" label="Sponsors" {scrollY} />
+  <NavItem href="/info" label="Info" {scrollY} />
+  <NavItem href="/blog" label="Blog" {scrollY} />
+</ul>

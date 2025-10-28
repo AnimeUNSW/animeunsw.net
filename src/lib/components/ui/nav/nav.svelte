@@ -35,7 +35,7 @@
   <div class="pointer-events-none absolute z-50 h-full">
     <nav
       class={[
-        "pointer-events-auto sticky top-0 hidden w-screen flex-row items-center justify-between rounded-b-3xl p-3 transition-all md:flex",
+        "pointer-events-auto sticky top-0 hidden w-screen flex-row items-center justify-between rounded-b-3xl p-3 transition-all   md:flex ",
         scrollY > 100 ? "bg-background/100" : "bg-background/0",
       ]}
     >
@@ -48,9 +48,7 @@
         />
       </a>
 
-      <ul class="flex flex-row space-x-9">
-        <NavItemList {scrollY} />
-      </ul>
+      <NavItemList {scrollY} />
 
       <Join />
     </nav>
@@ -63,9 +61,7 @@
       <Icon variant="aunsw" size={40} fill="var(--foreground)" />
     </a>
 
-    <ul class="flex flex-row space-x-9">
-      <NavItemList />
-    </ul>
+    <NavItemList />
 
     <Join />
   </nav>
