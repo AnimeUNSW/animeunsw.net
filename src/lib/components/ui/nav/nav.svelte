@@ -28,44 +28,37 @@
   const chevronDownTransition = (open: boolean) => {
     return ["transition-all duration-200", open ? "rotate-180" : ""];
   };
+
+  const isHomePage = page.url.pathname === "/";
 </script>
 
 <!-- desktop -->
-{#if page.url.pathname === "/"}
-  <div class="pointer-events-none absolute z-50 h-full">
-    <nav
-      class={[
-        "pointer-events-auto sticky top-0 hidden w-screen flex-row items-center justify-between rounded-b-3xl p-3 transition-all   md:flex ",
-        scrollY > 100 ? "bg-background/100" : "bg-background/0",
-      ]}
-    >
-      <a href="/" class="pb-1">
-        <Icon
-          variant="aunsw"
-          size={40}
-          fill={scrollY > 100 ? "var(--foreground)" : "white"}
-          class="transition-all"
-        />
-      </a>
-
-      <NavItemList {scrollY} />
-
-      <Join />
-    </nav>
-  </div>
-{:else}
+<div class={isHomePage ? "pointer-events-none absolute z-50 h-full" : ""}>
   <nav
-    class="bg-background sticky top-0 hidden flex-row items-center justify-between rounded-b-3xl p-3 md:flex"
+    class={isHomePage
+      ? [
+          "pointer-events-auto sticky top-0 hidden w-screen flex-row items-center justify-between rounded-b-3xl p-3 transition-all   md:flex ",
+          scrollY > 100 ? "bg-background/100" : "bg-background/0",
+        ]
+      : "bg-background sticky top-0 hidden flex-row items-center justify-between rounded-b-3xl p-3 md:flex"}
   >
     <a href="/" class="pb-1">
-      <Icon variant="aunsw" size={40} fill="var(--foreground)" />
+      <Icon
+        variant="aunsw"
+        size={40}
+        fill={isHomePage
+          ? scrollY > 100
+            ? "var(--foreground)"
+            : "white"
+          : "var(--foreground)"}
+        class="transition-all"
+      />
     </a>
 
-    <NavItemList />
-
+    <NavItemList {...isHomePage ? { scrollY } : {}} />
     <Join />
   </nav>
-{/if}
+</div>
 
 <!-- mobile -->
 {#if page.url.pathname === "/"}
