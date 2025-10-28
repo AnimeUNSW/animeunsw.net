@@ -33,7 +33,9 @@
 </script>
 
 <!-- desktop -->
+<!-- the home page has a container that has a slightly different style -->
 <div class={isHomePage ? "pointer-events-none absolute z-50 h-full" : ""}>
+  <!-- navbar -->
   <nav
     class={isHomePage
       ? [
@@ -42,6 +44,7 @@
         ]
       : "bg-background sticky top-0 hidden flex-row items-center justify-between rounded-b-3xl p-3 md:flex"}
   >
+    <!-- anchor tag to the home page -->
     <a href="/" class="pb-1">
       <Icon
         variant="aunsw"
@@ -55,7 +58,10 @@
       />
     </a>
 
+    <!-- List of navbar items which direct us to different pages (events, sponsors, etc) -->
     <NavItemList {...isHomePage ? { scrollY } : {}} />
+
+    <!-- join which displays our social media platforms -->
     <Join />
   </nav>
 </div>
