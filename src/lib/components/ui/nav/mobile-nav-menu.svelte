@@ -11,6 +11,7 @@
   transition:fly={flyTransition}
   class="bg-card absolute top-0 left-0 z-40 w-full rounded-b-3xl pt-[72px] ease-in-out"
 >
+  <!-- we have our nav item list and join social lists -->
   <ul class="flex w-full flex-col space-y-5 py-4 pl-8">
     <NavItemList />
   </ul>

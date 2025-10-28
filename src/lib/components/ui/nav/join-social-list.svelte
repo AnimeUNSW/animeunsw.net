@@ -2,6 +2,7 @@
   import JoinSocial from "./join-social.svelte";
 </script>
 
+<!-- list of join socials for our different social media platforms -->
 <JoinSocial
   icon="rubric"
   label="Rubric"

@@ -19,10 +19,12 @@
     }
   });
 
+  // takes in a word as an input and returns a new string where the first letter is capitalised
   const firstLetterUpperCase = (word: string) => {
     return word.charAt(1).toUpperCase() + word.slice(2);
   };
 
+  // transition for chevron down
   const chevronDownTransition = (open: boolean) => {
     return ["transition-all duration-200", open ? "rotate-180" : ""];
   };

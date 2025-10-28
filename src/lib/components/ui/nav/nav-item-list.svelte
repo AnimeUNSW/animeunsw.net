@@ -3,6 +3,7 @@
   export let scrollY = 0;
 </script>
 
+<!-- list of nav items -->
 <NavItem href="/events" label="Events" {scrollY} />
 <NavItem href="/sponsors" label="Sponsors" {scrollY} />
 <NavItem href="/info" label="Info" {scrollY} />
