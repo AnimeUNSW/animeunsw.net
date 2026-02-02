@@ -89,7 +89,7 @@
       >Interested in collaborating with AUNSW as a sponsor? We welcome
       partnerships that can enhance the experiences of our anime community.
       Please direct all sponsorship-related queries to our externals director
-      Ethan at <a
+      Felix at <a
         href="mailto:sponsors@animeunsw.net"
         class="text-primary underline">sponsors@animeunsw.net</a
       >, and let's explore how we can work together.</InfoCard
