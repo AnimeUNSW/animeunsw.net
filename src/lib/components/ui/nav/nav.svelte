@@ -3,13 +3,15 @@
 <script lang="ts">
   import { page } from "$app/state";
   import { afterNavigate } from "$app/navigation";
-  import { fade } from "svelte/transition";
+  import { quadInOut } from "svelte/easing";
+  import { fade, fly } from "svelte/transition";
   import { Icon } from "$lib/components/ui/icon";
+  import { Button } from "$lib/components/ui/button";
   import { ChevronDown } from "@lucide/svelte";
+  import NavItem from "./nav-item.svelte";
   import Join from "./join.svelte";
-  import NavItemList from "./nav-item-list.svelte";
-  import MobileNavButton from "./mobile-nav-button.svelte";
-  import MobileNavMenu from "./mobile-nav-menu.svelte";
+  import JoinSocial from "./join-social.svelte";
+
   let open = false;
   let scrollY: number;
 
@@ -18,53 +20,54 @@
       open = false;
     }
   });
-
-  // takes in a word as an input and returns a new string where the first letter is capitalised
-  const firstLetterUpperCase = (word: string) => {
-    return word.charAt(1).toUpperCase() + word.slice(2);
-  };
-
-  // transition for chevron down
-  const chevronDownTransition = (open: boolean) => {
-    return ["transition-all duration-200", open ? "rotate-180" : ""];
-  };
-
-  const isHomePage = page.url.pathname === "/";
 </script>
 
 <!-- desktop -->
-<!-- the home page has a container that has a slightly different style -->
-<div class={isHomePage ? "pointer-events-none absolute z-50 h-full" : ""}>
-  <!-- navbar -->
+{#if page.url.pathname === "/"}
+  <div class="pointer-events-none absolute z-50 h-full">
+    <nav
+      class={[
+        "pointer-events-auto sticky top-0 hidden w-screen flex-row items-center justify-between rounded-b-3xl p-3 transition-all md:flex",
+        scrollY > 100 ? "bg-background/100" : "bg-background/0",
+      ]}
+    >
+      <a href="/" class="pb-1">
+        <Icon
+          variant="aunsw"
+          size={40}
+          fill={scrollY > 100 ? "var(--foreground)" : "white"}
+          class="transition-all"
+        />
+      </a>
+
+      <ul class="flex flex-row space-x-9">
+        <NavItem href="/events" label="Events" {scrollY} />
+        <NavItem href="/sponsors" label="Sponsors" {scrollY} />
+        <NavItem href="/info" label="Info" {scrollY} />
+        <NavItem href="/blog" label="Blog" {scrollY} />
+      </ul>
+
+      <Join />
+    </nav>
+  </div>
+{:else}
   <nav
-    class={isHomePage
-      ? [
-          "pointer-events-auto sticky top-0 hidden w-screen flex-row items-center justify-between rounded-b-3xl p-3 transition-all   md:flex ",
-          scrollY > 100 ? "bg-background/100" : "bg-background/0",
-        ]
-      : "bg-background sticky top-0 hidden flex-row items-center justify-between rounded-b-3xl p-3 md:flex"}
+    class="bg-background sticky top-0 hidden flex-row items-center justify-between rounded-b-3xl p-3 md:flex"
   >
-    <!-- anchor tag to the home page -->
     <a href="/" class="pb-1">
-      <Icon
-        variant="aunsw"
-        size={40}
-        fill={isHomePage
-          ? scrollY > 100
-            ? "var(--foreground)"
-            : "white"
-          : "var(--foreground)"}
-        class="transition-all"
-      />
+      <Icon variant="aunsw" size={40} fill="var(--foreground)" />
     </a>
 
-    <!-- List of navbar items which direct us to different pages (events, sponsors, etc) -->
-    <NavItemList {...isHomePage ? { scrollY } : {}} />
+    <ul class="flex flex-row space-x-9">
+      <NavItem href="/events" label="Events" />
+      <NavItem href="/sponsors" label="Sponsors" />
+      <NavItem href="/info" label="Info" />
+      <NavItem href="/blog" label="Blog" />
+    </ul>
 
-    <!-- join which displays our social media platforms -->
     <Join />
   </nav>
-</div>
+{/if}
 
 <!-- mobile -->
 {#if page.url.pathname === "/"}
@@ -75,7 +78,10 @@
         scrollY > 100 ? "bg-background/100" : "bg-background/0",
       ]}
     >
-      <MobileNavButton bind:open>
+      <button
+        class="z-50 flex items-center justify-between py-4"
+        onclick={() => (open = !open)}
+      >
         <a href="/" class="pb-1">
           <Icon
             variant="aunsw"
@@ -87,21 +93,63 @@
 
         {#if !open}
           <span transition:fade={{ duration: 100 }} class="text-3xl"
-            >{firstLetterUpperCase(page.url.pathname)}</span
+            >{page.url.pathname.charAt(1).toUpperCase() +
+              page.url.pathname.slice(2)}</span
           >
         {/if}
 
         <div class="flex items-center pr-1">
           <ChevronDown
-            class={chevronDownTransition(open)}
+            class={["transition-all duration-200", open ? "rotate-180" : ""]}
             size={36}
             color={scrollY > 100 || open ? "var(--foreground)" : "white"}
           />
         </div>
-      </MobileNavButton>
+      </button>
 
       {#if open}
-        <MobileNavMenu />
+        <div
+          transition:fly={{ y: -8, duration: 200, easing: quadInOut }}
+          class="bg-card absolute top-0 left-0 z-40 w-full rounded-b-3xl pt-[72px] ease-in-out"
+        >
+          <ul class="flex w-full flex-col space-y-5 py-4 pl-8">
+            <NavItem href="/events" label="Events" />
+            <NavItem href="/sponsors" label="Sponsors" />
+            <NavItem href="/info" label="Info" />
+            <NavItem href="/blog" label="Blog" />
+          </ul>
+
+          <div
+            class="xs:justify-start xs:space-x-4 xs:px-8 xs:pb-6 flex justify-between space-x-1 px-4 py-4"
+          >
+            <JoinSocial
+              icon="rubric"
+              label="Rubric"
+              href="https://campus.hellorubric.com/?s=12432"
+              big={true}
+            />
+            <JoinSocial
+              icon="discord"
+              label="Discord"
+              href="https://discord.gg/aunsw"
+            />
+            <JoinSocial
+              icon="instagram"
+              label="Instagram"
+              href="https://instagram.com/animeunsw"
+            />
+            <JoinSocial
+              icon="facebook"
+              label="Facebook"
+              href="https://www.facebook.com/unswanime/"
+            />
+            <JoinSocial
+              icon="xiaohongshu"
+              label="RedNote"
+              href="https://discord.gg/aunsw"
+            />
+          </div>
+        </div>
       {/if}
     </nav>
   </div>
@@ -109,24 +157,75 @@
   <nav
     class="bg-background sticky top-0 flex flex-col gap-y-4 rounded-b-3xl px-4 md:hidden"
   >
-    <MobileNavButton bind:open>
+    <button
+      class="z-50 flex items-center justify-between py-4"
+      onclick={() => (open = !open)}
+    >
       <a href="/" class="pb-1">
         <Icon variant="aunsw" size={36} fill="var(--foreground)" />
       </a>
 
       {#if !open}
         <span transition:fade={{ duration: 100 }} class="text-3xl"
-          >{firstLetterUpperCase(page.url.pathname)}</span
+          >{page.url.pathname.charAt(1).toUpperCase() +
+            page.url.pathname.slice(2)}</span
         >
       {/if}
 
       <div class="flex items-center pr-1">
-        <ChevronDown class={chevronDownTransition(open)} size={36} />
+        <ChevronDown
+          class={[
+            "transition-transform duration-200",
+            open ? "rotate-180" : "",
+          ]}
+          size={36}
+        />
       </div>
-    </MobileNavButton>
+    </button>
 
     {#if open}
-      <MobileNavMenu />
+      <div
+        transition:fly={{ y: -8, duration: 200, easing: quadInOut }}
+        class="bg-card absolute top-0 left-0 z-40 w-full rounded-b-3xl pt-[72px] ease-in-out"
+      >
+        <ul class="flex w-full flex-col space-y-5 py-4 pl-8">
+          <NavItem href="/events" label="Events" />
+          <NavItem href="/sponsors" label="Sponsors" />
+          <NavItem href="/info" label="Info" />
+          <NavItem href="/blog" label="Blog" />
+        </ul>
+
+        <div
+          class="xs:justify-start xs:space-x-4 xs:px-8 xs:pb-6 flex justify-between space-x-1 px-4 py-4"
+        >
+          <JoinSocial
+            icon="rubric"
+            label="Rubric"
+            href="https://campus.hellorubric.com/?s=12432"
+            big={true}
+          />
+          <JoinSocial
+            icon="discord"
+            label="Discord"
+            href="https://discord.gg/aunsw"
+          />
+          <JoinSocial
+            icon="instagram"
+            label="Instagram"
+            href="https://instagram.com/animeunsw"
+          />
+          <JoinSocial
+            icon="facebook"
+            label="Facebook"
+            href="https://www.facebook.com/unswanime/"
+          />
+          <JoinSocial
+            icon="xiaohongshu"
+            label="RedNote"
+            href="https://discord.gg/aunsw"
+          />
+        </div>
+      </div>
     {/if}
   </nav>
 {/if}
